@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mydocker1
+  labels:
+   name: mydocker1
+spec:
+  containers:
+  - name: mydocker1
+    image: mariadb:10.3
+    ports:
+      - containerPort: 3306
+    env:
+      - name: MYSQL_ROOT_PASSWORD
+        valueFrom:
+          secretKeyRef:
+            name: dbsec
+            key: dbpass
+  imagePullSecrets:
+    - name: regsec         #실제로는  사설 저장소의 정보가 담긴 secret, 물론 도커 허브 정보여도 상관 없음
